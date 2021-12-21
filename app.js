@@ -5,12 +5,15 @@ const app = express();
 const mongoose = require("mongoose");
 const _ = require("lodash");
 
+require('dotenv').config();
+
 
 app.set("view engine", 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://admin-sarthak:Sandhya%40710@cluster0.uqatm.mongodb.net/todolistDB", {useNewUrlParser: true, useUnifiedTopology: true });
+const mongo_uri = process.env.MONGO_URI;
+mongoose.connect(mongo_uri, {useNewUrlParser: true, useUnifiedTopology: true });
 
 const itemsSchema = {
     name: String
@@ -133,6 +136,3 @@ if (port == null || port == "") {
 }
 app.listen(port);
 
-app.listen(3000,function(){
-    console.log("Server Started Successfully");
-});
